@@ -33,39 +33,43 @@ public class Main
 
 	public static void main(String[] args)
 	{
+		// Person.Identity test;
+		
 		// DECLARATION + INITIALIZATION
 		Person p1 = new Person("Amira", "I am a Syrian refugee.", 40);
 		Person p2 = new Person("D'Andra", "I am an African-American trans woman.", -20);
 		Person p3 = new Person("Jennifer", "I am a New Yorker", 140);
 		Person p4 = new Person("Pete", "I am a guy from Pennsylvania", 200);
 		Person self = new Person();
-		Person[] people = {p1, p2, p3, p4, self};
+		Person[] people = { p1, p2, p3, p4, self };
 		boolean done = false;
 		int input;
-		
+
 		// WELCOME + INTRO
 		System.out.println("Welcome to the Privilege Calculator.\n\n"
 				+ "This is a small exercise that gives us a glimpse at how "
 				+ "fortunate we have been in life.\n");
 
 		Main.fillInfo(self);
-		
+
 		// INPUT + CALCULATION + OUTPUT
-		do{
+		do {
 			System.out.println("\n~~~Main Menu~~~\n");
 			System.out.println("1. Take questionnaire to calculate privilege estimate.");
-			System.out.println("2. Check my estimate. (Defaults to " + Person.DEFAULT_PRIVILEGE + " if questionnaire has not been taken.)");
+			System.out.println("2. Check my estimate. (Defaults to " + Person.DEFAULT_PRIVILEGE
+					+ " if questionnaire has not been taken.)");
 			System.out.println("3. Compare my estimate with others'.");
 			System.out.println("4. Exit program.");
 			System.out.print("What would you like to do?\nEnter choice: ");
-			
+
 			input = keyboard.nextInt();
 			System.out.println();
 
-			switch(input)
-			{
+			switch (input) {
 				case 1:
-					self.setPrivilege( Main.doPrivilegeQuestionnaire() );
+					// int selfPrivilege = Main.doPrivilegeQuestionnaire();
+					// self.setPrivilege(selfPrivilege);
+					self.setPrivilege(Main.doPrivilegeQuestionnaire());
 					System.out.println("Your privilege estimate is: " + self.getPrivilege());
 					System.out.println("\nReturning to main menu...\n");
 					break;
@@ -73,8 +77,8 @@ public class Main
 					System.out.println(self);
 					break;
 				case 3:
-					/***** TODO: (Part 1) implement a comparison case using the comparable method on the Person class to compare self to p1-p4*****/
-					
+					/***** TODO: (Part 1) implement a comparison case using the comparable method on the Person class to compare self to p1-p4 *****/
+					Main.comparePeople(people);
 					System.out.println("\nReturning to main menu.\n");
 					break;
 				case 4:
@@ -85,12 +89,33 @@ public class Main
 				default:
 					System.out.println("Invalid input, please enter a valid choice."
 							+ "\nReturning to main menu...\n");
-					break;				
+					break;
 			}
-		}while(!done);
+		} while (!done);
 
 		System.out.println("Thank you for exploring your privilege, it can be uncomfortable but it's a crucial step" +
-			"in our own growth and self-reflection. We appreciate you taking that journey with us! :D");
+				"in our own growth and self-reflection. We appreciate you taking that journey with us! :D");
+	}
+	
+	public static void comparePeople(Person[] group) {
+		Person user = group[group.length - 1];
+		int compareResult;
+
+		System.out.println("\nSummary of privilege estimates:");
+		for (int i = 0; i < group.length - 1; i++) {
+			compareResult = user.compareTo(group[i]);
+
+			if (compareResult > 0) {
+				System.out.println("More privilege than " + group[i].getName());
+			} else if (compareResult == 0) {
+				System.out.println("Same privilege as " + group[i].getName());
+			} else {
+				System.out.println("Less privilege than " + group[i].getName());
+			}
+
+			System.out.println("\tWith a difference of " + compareResult);
+		}
+
 	}
 
 	/***** TODO: (Part 2) upgrade method to ask user for pronouns and background info *****/
