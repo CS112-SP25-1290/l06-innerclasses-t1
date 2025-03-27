@@ -1,4 +1,4 @@
-public class Person implements Cloneable 
+public class Person implements Cloneable, Comparable<Person> 
 {
 	/***** TODO: (Part 2) create helper inner class for Identity*****/
 	private class Identity {
@@ -38,7 +38,7 @@ public class Person implements Cloneable
 
 	// INSTANCE VARIABLES
 	private String name;
-	private Identity story;
+	private Identity story = new Identity();
 	private int privilege;
 
 	// CONSTRUCTORS	
@@ -124,13 +124,11 @@ public class Person implements Cloneable
 	/***** TODO: (Part 1) override compareTo method to implement Comparable interface*****/
 	// Negative means this is less than, 0 means this is the same, 1 means this is greater than (specified other object)
 	@Override
-	public int compareTo(Object other) {
-		if (other == null || (!(other instanceof Person))) {
-			throw new IllegalArgumentException("null given to compareTo method in Person, or not a Person type");
+	public int compareTo(Person other) {
+		if (other == null) {
+			throw new IllegalArgumentException("null given to compareTo method in Person");
 		}
-
-		Person otherPerson = (Person) other;
-		return this.privilege - otherPerson.privilege;
+		return this.privilege - other.privilege;
 	}
 
 }
